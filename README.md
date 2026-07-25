@@ -99,7 +99,6 @@ Imagine you have a robot platform that can move in 6 different ways - it can go 
 2. **Flight Simulator**: Used as motion platform for flight simulation with excellent realism
 3. **Haptic Feedback**: Provided precise force feedback for virtual reality applications
 4. **Precision Positioning**: Achieved sub-millimeter positioning for laboratory automation
-5. **Educational Demo**: Used as teaching tool for robotics and kinematics concepts
 
 ---
 
