@@ -1,6 +1,6 @@
 # Stewart Platform Firmware
 
-## 🎯 ELI5: What This Project Does
+## 🎯 What This Project Does
 
 Imagine you have a robot platform that can move in 6 different ways - it can go up/down, left/right, forward/backward, and also tilt in any direction (like tilting your head). This is called a "6-DOF" (6 Degrees of Freedom) Stewart Platform.
 
