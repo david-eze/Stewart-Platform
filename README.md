@@ -235,17 +235,14 @@ Real-time 3D visualization featuring:
 Edit `include/hardware_config.h` to match your hardware:
 
 ```cpp
-// Modify pin assignments
 const uint8_t ACTUATOR_PWM_PINS[6] = {2, 3, 4, 5, 6, 7};
 const uint8_t ACTUATOR_DIR_PINS[6] = {8, 9, 10, 11, 12, 13};
 
-// Modify platform geometry
 const PlatformGeometry DEFAULT_PLATFORM_GEOMETRY = {
-    .base_radius = 150.0,              // Adjust to your platform
-    .top_radius = 100.0,               // Adjust to your platform
-    .min_leg_length = 80.0,           // Adjust to your actuators
-    .max_leg_length = 200.0,          // Adjust to your actuators
-    // ...
+    .base_radius = 150.0,            
+    .top_radius = 100.0,          
+    .min_leg_length = 80.0,        
+    .max_leg_length = 200.0,          
 };
 ```
 
@@ -255,10 +252,9 @@ Adjust PID parameters in `include/hardware_config.h`:
 
 ```cpp
 const PIDParams POSITION_PID_PARAMS = {
-    .kp = 2.0,    // Increase for faster response
-    .ki = 0.0,    // Add for steady-state error elimination
-    .kd = 0.1,    // Increase to reduce overshoot
-    // ...
+    .kp = 2.0,    
+    .ki = 0.0,    
+    .kd = 0.1,    
 };
 ```
 
@@ -267,9 +263,9 @@ const PIDParams POSITION_PID_PARAMS = {
 Configure safety thresholds:
 
 ```cpp
-const double OVERCURRENT_THRESHOLD = 5.5;        // Amperes
-const double WORKSPACE_SAFETY_MARGIN = 5.0;      // Millimeters
-const double SINGULARITY_THRESHOLD = 0.95;      // Jacobian condition number
+const double OVERCURRENT_THRESHOLD = 5.5;    
+const double WORKSPACE_SAFETY_MARGIN = 5.0;   
+const double SINGULARITY_THRESHOLD = 0.95;      
 ```
 
 ## Usage
@@ -320,8 +316,8 @@ The binary protocol supports the following commands:
 
 ```cpp
 const ActuatorCalibration ACTUATOR_CALIBRATION[6] = {
-    {0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 80.0, 200.0, false},  // Actuator 0
-    // ... adjust based on calibration results
+    {0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 80.0, 200.0, false},  
+    
 };
 ```
 
@@ -335,7 +331,6 @@ const PlatformGeometry DEFAULT_PLATFORM_GEOMETRY = {
     .top_radius = <measured_top_radius>,
     .base_angle_offset = <measured_offset>,
     .top_angle_offset = <measured_offset>,
-    // ...
 };
 ```
 
@@ -383,38 +378,6 @@ const PlatformGeometry DEFAULT_PLATFORM_GEOMETRY = {
 - Error state activation
 - Serial notification
 
-## Troubleshooting
-
-### Build Issues
-
-**Problem**: Compilation errors with FreeRTOS
-- **Solution**: Ensure FreeRTOS library is installed in PlatformIO
-
-**Problem**: Linker errors regarding memory
-- **Solution**: Reduce stack sizes in `hardware_config.h` or disable DTCM placement
-
-### Runtime Issues
-
-**Problem**: Control loop timing jitter
-- **Solution**: Check for interrupt conflicts, increase task priority
-
-**Problem**: Serial communication failures
-- **Solution**: Verify USB cable quality, reduce baud rate if needed
-
-**Problem**: Actuator oscillation
-- **Solution**: Reduce PID gains, enable derivative filtering
-
-### Hardware Issues
-
-**Problem**: Motors not responding
-- **Solution**: Check enable pin configuration, verify power supply
-
-**Problem**: Limit switches not triggering
-- **Solution**: Verify wiring, check pull-up resistor configuration
-
-**Problem**: Current readings inaccurate
-- **Solution**: Calibrate current sensors, check ADC reference voltage
-
 ## Mathematical Foundation
 
 ### Kinematics
@@ -460,26 +423,3 @@ Contributions are welcome! Please ensure:
 - All functions include detailed comments
 - Changes are tested on hardware
 - Documentation is updated accordingly
-
-## Support
-
-For issues, questions, or suggestions:
-- Check the troubleshooting section
-- Review code comments for implementation details
-- Verify hardware configuration matches your setup
-
-## Version History
-
-- **v1.0** (2026-07-24): Initial release
-  - Full 6-DOF inverse kinematics
-  - FreeRTOS task architecture
-  - Binary serial protocol
-  - Python 3D visualizer
-  - Comprehensive safety features
-
-## Acknowledgments
-
-- Teensy 4.1 platform by PJRC
-- FreeRTOS real-time operating system
-- PlatformIO development environment
-- Mathematical foundations from parallel robotics research
