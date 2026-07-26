@@ -64,17 +64,6 @@ Ran for 24 hours straight. No errors, no overheating, temperature rise stayed un
 
 ---
 
-## Overview
-
-This is firmware for a 6-DOF Stewart Platform, running on a Teensy 4.1 (ARM Cortex-M7 @ 600 MHz) under FreeRTOS. It includes:
-
-- A deterministic 1 kHz control loop
-- Double-precision inverse kinematics, tuned to make use of the Teensy's hardware FPU
-- Separate FreeRTOS tasks for control, safety monitoring, and telemetry
-- Serial communication over USB CDC at 12 Mbps, using a binary protocol with CRC16
-- Limit switches, current sensing, and a watchdog timer for basic hardware protection
-- A Python-based 3D visualizer for watching the platform's digital twin move in real time
-
 ## Hardware
 
 ### Controller
