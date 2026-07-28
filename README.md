@@ -2,6 +2,14 @@
 
 Firmware for a 6-DOF Stewart Platform (a parallel-actuated platform that can translate on all three axes and rotate in pitch, roll, and yaw) built around a Teensy 4.1 running FreeRTOS.
 
+---
+
+```bash
+simulation/simulate.py
+```
+![Stewart Platform 3D Animation](./assets/stewart_platform_3d_animation.gif)
+<em>Figure-8 trajectory: 3D wireframe view showing the platform translating and rotating through space. The blue hexagon is the fixed base, the red hexagon is the moving top plate, and the green/orange lines are the six actuators.</em>
+
 ## What this actually is
 
 A Stewart Platform is six linear actuators arranged between a fixed base and a moving top plate. By lengthening and shortening the six legs in coordinated amounts, the top plate can move up/down, side to side, forward/back, and tilt in any direction, all from six simple push/pull actuators.
@@ -33,26 +41,37 @@ A few numbers worth knowing up front: the control loop runs at a fixed 1 kHz, po
 - Actuator speed: 0 to 150 mm/s, adjustable
 - Actuator force: 0 to 50 N per actuator
 
+## Simulation
+
+![Leg Lengths and Velocities](./assets/leg_lengths_velocities.png)
+<em>Top: the six actuator lengths vary sinusoidally as the platform follows a circular path with simultaneous tilting. Dashed red lines show the hard limits (80–200 mm). Bottom: the corresponding leg velocities derived from the length derivatives.</em>
+
+![Workspace Reachability](./assets/workspace_reachability.png)
+<em>Reachable (green) vs unreachable (red) platform positions at three different heights (Z = 120, 150, 180 mm). Points where all six leg lengths fall within 80–200 mm are reachable.</em>
+
+![Pose Trajectory Analysis](./assets/pose_trajectory_analysis.png)
+<em>Six-panel analysis of a spiral trajectory: position vs time, orientation vs time, leg lengths vs time, 3D trajectory path, XY projection, and leg length range per actuator.</em>
+
 ## Test results
 
 These are from internal bench testing on one build of the hardware, not an independent or exhaustive validation, so treat them as a starting point rather than a guarantee for your own setup.
 
-**Circular motion trajectory**
+**Circular motion trajectory**:
 360° circular path at 50mm radius, run for 10 seconds. Deviation from the ideal circle stayed under 0.1mm.
 
-**Rapid position changes**
+**Rapid position changes**:
 100 random position changes within 30 seconds. All targets were reached within tolerance, average settling time was about 150ms.
 
-**Singularity avoidance**
+**Singularity avoidance**:
 Deliberately drove the platform toward known singular configurations. The Jacobian-based detection caught all of them, with no false positives in this test run.
 
-**Emergency stop response**
+**Emergency stop response**:
 Triggered e-stop at maximum speed. The platform stopped within 5ms, with under 0.5mm of overshoot.
 
-**Continuous operation**
+**Continuous operation**:
 Ran for 24 hours straight. No errors, no overheating, temperature rise stayed under 5°C above ambient.
 
-**Serial communication reliability**
+**Serial communication reliability**:
 1,000,000 packets sent. 999,997 were received correctly, a 0.0003% packet loss rate and 0.0001% CRC error rate.
 
 ### Applications it's been tried on
